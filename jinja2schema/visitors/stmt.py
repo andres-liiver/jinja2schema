@@ -213,7 +213,8 @@ def visit_extends(ast, macroses=None, config=default_config, child_blocks=None):
 
 
 def get_inherited_template(config, ast):
-    env = Environment(loader=PackageLoader(config.PACKAGE_NAME, config.TEMPLATE_DIR))
+    loader = config.LOADER if config.LOADER else PackageLoader(config.PACKAGE_NAME, config.TEMPLATE_DIR)
+    env = Environment(loader=loader)
     return env.parse(env.loader.get_source(env, ast.template.value)[0])
 
 
